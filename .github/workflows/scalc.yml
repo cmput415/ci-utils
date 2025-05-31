@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - GazUtils/Dockerfile
 
 jobs:
   build-and-push:
@@ -29,7 +31,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t $IMAGE_NAME:${{ steps.date.outputs.tag }} -t $IMAGE_NAME:latest .
+          docker build -t $IMAGE_NAME:${{ steps.date.outputs.tag }} -t $IMAGE_NAME:latest ./GazUtils
 
       - name: Push Docker image with date tag
         run: docker push $IMAGE_NAME:${{ steps.date.outputs.tag }}
