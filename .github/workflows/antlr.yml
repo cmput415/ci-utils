@@ -8,7 +8,7 @@ on:
       - ANTLR/Dockerfile
 
 jobs:
-  build-and-push:
+  build-antlr:
     runs-on: self-hosted
 
     env:

@@ -8,7 +8,7 @@ on:
       - GazUtils/Dockerfile
 
 jobs:
-  build-and-push:
+  build-gaz-utils:
     runs-on: self-hosted
     needs: ["llvm", "antlr"]
 

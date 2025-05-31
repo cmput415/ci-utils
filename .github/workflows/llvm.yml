@@ -8,7 +8,7 @@ on:
       - GazUtils/Dockerfile
 
 jobs:
-  build-and-push:
+  build-llvm:
     runs-on: self-hosted
 
     env:
