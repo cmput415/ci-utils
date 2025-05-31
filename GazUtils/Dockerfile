@@ -9,7 +9,7 @@ FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y \
     python3 python3-pip libtinfo6 zlib1g libxml2 lld
 
-# Copy LLVM from builder
+# Copy LLVM and ANTLR from respective images
 COPY --from=llvm /usr/local/llvm /usr/local/llvm
 COPY --from=antlr /usr/local/antlr /usr/local/antlr
 
