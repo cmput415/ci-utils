@@ -11,7 +11,6 @@ on:
 jobs:
   build-gaz-utils:
     runs-on: self-hosted
-    needs: ["llvm", "antlr"]
 
     env:
       IMAGE_NAME: ghcr.io/cmput415/gaz-utils
