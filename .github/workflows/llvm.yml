@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - GazUtils/Dockerfile
+      - .github/workflows/llvm.yml
 
 jobs:
   build-llvm:

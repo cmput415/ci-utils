@@ -6,10 +6,11 @@ on:
       - main
     paths:
       - ANTLR/Dockerfile
+      - .github/workflows/antlr.yml
 
 jobs:
   build-antlr:
-    runs-on: self-hosted
+    runs-on: ubuntu:latest
 
     env:
       IMAGE_NAME: ghcr.io/cmput415/antlr

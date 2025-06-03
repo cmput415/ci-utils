@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - GazUtils/Dockerfile
+      - .github/workflows/gaz-utils.yml
 
 jobs:
   build-gaz-utils:

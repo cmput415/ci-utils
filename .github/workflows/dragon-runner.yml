@@ -6,10 +6,11 @@ on:
       - main
     paths:
       - DragonRunner/Dockerfile
+      - .github/workflows/dragon-runner.yml
 
 jobs:
   build-dragon-runner:
-    runs-on: self-hosted
+    runs-on: ubuntu:latest
 
     env:
       IMAGE_NAME: ghcr.io/cmput415/dragon-runner
