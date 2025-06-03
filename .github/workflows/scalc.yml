@@ -1,18 +1,19 @@
-name: Build and Push Docker Image
+name: SCalc Docker Image Deployment
 
 on:
   push:
     branches:
       - main
     paths:
-      - GazUtils/Dockerfile
+      - SCalc/Dockerfile
+      - .github/workflows/scalc.yml
 
 jobs:
   build-and-push:
-    runs-on: self-hosted
+    runs-on: ubuntu:latest
 
     env:
-      IMAGE_NAME: ghcr.io/cmput415/full-utils
+      IMAGE_NAME: ghcr.io/cmput415/scalc-utils
 
     steps:
       - name: Checkout repository
@@ -31,7 +32,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t $IMAGE_NAME:${{ steps.date.outputs.tag }} -t $IMAGE_NAME:latest ./GazUtils
+          docker build -t $IMAGE_NAME:${{ steps.date.outputs.tag }} -t $IMAGE_NAME:latest ./SCalc
 
       - name: Push Docker image with date tag
         run: docker push $IMAGE_NAME:${{ steps.date.outputs.tag }}
