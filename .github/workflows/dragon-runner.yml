@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-dragon-runner:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
 
     env:
       IMAGE_NAME: ghcr.io/cmput415/dragon-runner
