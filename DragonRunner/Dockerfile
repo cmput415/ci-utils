@@ -1,8 +1,12 @@
 # Build the dragon runner
+FROM ghcr.io/cmput415/llvm:20.1.0 AS llvm
 FROM ubuntu:22.04
 
+COPY --from=llvm /usr/local/llvm/bin /usr/local/llvm/bin
+
+
 RUN apt-get update && apt-get install -y \
-  git python3 python3-pip
+  git python3 python3-pip clang
 
 # Install the Dragon-Runner
 WORKDIR /opt
