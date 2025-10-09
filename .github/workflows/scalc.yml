@@ -1,41 +1,41 @@
-name: SCalc Docker Image Deployment
-
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - SCalc/Dockerfile
-      - .github/workflows/scalc.yml
-
-jobs:
-  build-and-push:
-    runs-on: ubuntu:latest
-
-    env:
-      IMAGE_NAME: ghcr.io/cmput415/scalc-utils
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set date tag
-        id: date
-        run: echo "tag=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
-      - name: Build Docker image
-        run: |
-          docker build -t $IMAGE_NAME:${{ steps.date.outputs.tag }} -t $IMAGE_NAME:latest ./SCalc
-
-      - name: Push Docker image with date tag
-        run: docker push $IMAGE_NAME:${{ steps.date.outputs.tag }}
-
-      - name: Push Docker image with latest tag
-        run: docker push $IMAGE_NAME:latest
+# name: SCalc Docker Image Deployment
+#
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - SCalc/Dockerfile
+#       - .github/workflows/scalc.yml
+#
+# jobs:
+#   build-and-push:
+#     runs-on: ubuntu:latest
+#
+#     env:
+#       IMAGE_NAME: ghcr.io/cmput415/scalc-utils
+#
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+#
+#       - name: Log in to GitHub Container Registry
+#         uses: docker/login-action@v3
+#         with:
+#           registry: ghcr.io
+#           username: ${{ github.actor }}
+#           password: ${{ secrets.GITHUB_TOKEN }}
+#
+#       - name: Set date tag
+#         id: date
+#         run: echo "tag=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+#
+#       - name: Build Docker image
+#         run: |
+#           docker build -t $IMAGE_NAME:${{ steps.date.outputs.tag }} -t $IMAGE_NAME:latest ./SCalc
+#
+#       - name: Push Docker image with date tag
+#         run: docker push $IMAGE_NAME:${{ steps.date.outputs.tag }}
+#
+#       - name: Push Docker image with latest tag
+#         run: docker push $IMAGE_NAME:latest
