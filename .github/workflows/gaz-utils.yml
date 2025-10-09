@@ -1,6 +1,10 @@
 name: Gazprea Utils Image Deployment
 
 on:
+  workflow_run:
+    workflows: ["LLVM Image Deployment"]
+    types:
+      - completed
   push:
     branches:
       - main
