@@ -1,6 +1,8 @@
 # Stage 1: Build LLVM from source
 FROM ubuntu:22.04 AS builder
 
+ARG ANTLR_VERSION
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     git cmake ninja-build python3 python3-pip \
@@ -13,7 +15,7 @@ RUN git clone https://github.com/antlr/antlr4.git
 
 # Build from source
 WORKDIR /opt/antlr4
-RUN git checkout 4.13.2
+RUN git checkout $ANTLR_VERSION
 RUN touch ./runtime/Cpp/LICENSE.txt
 RUN cmake -B ./build ./runtime/Cpp/ \
     -DCMAKE_BUILD_TYPE=RELEASE \

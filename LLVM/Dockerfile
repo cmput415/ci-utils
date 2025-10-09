@@ -1,6 +1,8 @@
 # Stage 1: Build LLVM from source
 FROM ubuntu:22.04 AS builder
 
+ARG LLVM_TAG
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     git cmake ninja-build python3 python3-pip \
@@ -13,7 +15,7 @@ RUN git clone https://github.com/llvm/llvm-project.git
 
 # Checkout the correct version
 WORKDIR /opt/llvm-project
-RUN git checkout llvmorg-20.1.0
+RUN git checkout $LLVM_TAG
 
 # Create build directory
 WORKDIR /opt/llvm-project/build

@@ -1,1 +1,2 @@
-docker build --push -t ghcr.io/cmput415/llvm:20.1.0 .
+source ../VERSIONS.env
+docker build --push -t ghcr.io/cmput415/llvm:$LLVM_VERSION .

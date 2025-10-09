@@ -19,6 +19,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Load versions from VERSIONS.env
+        run: |
+          source VERSIONS.env
+          echo "LLVM_VERSION=$LLVM_VERSION" >> $GITHUB_ENV
+          echo "DRAGON_RUNNER_VERSION=$DRAGON_RUNNER_VERSION" >> $GITHUB_ENV
+
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -32,10 +38,19 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t $IMAGE_NAME:${{ steps.date.outputs.tag }} -t $IMAGE_NAME:latest ./DragonRunner
+          docker build \
+            --build-arg LLVM_VERSION=$LLVM_VERSION \
+            --build-arg DRAGON_RUNNER_VERSION=$DRAGON_RUNNER_VERSION \
+            -t $IMAGE_NAME:${{ steps.date.outputs.tag }} \
+            -t $IMAGE_NAME:$DRAGON_RUNNER_VERSION \
+            -t $IMAGE_NAME:latest \
+            ./DragonRunner
 
       - name: Push Docker image with date tag
         run: docker push $IMAGE_NAME:${{ steps.date.outputs.tag }}
+
+      - name: Push Docker image with version tag
+        run: docker push $IMAGE_NAME:$DRAGON_RUNNER_VERSION
 
       - name: Push Docker image with latest tag
         run: docker push $IMAGE_NAME:latest

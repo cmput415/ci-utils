@@ -1,6 +1,10 @@
 # Stage 1: Build LLVM from source
-FROM ghcr.io/cmput415/llvm:20.1.0 AS llvm
-FROM ghcr.io/cmput415/antlr:13 AS antlr
+ARG LLVM_VERSION
+ARG ANTLR_VERSION
+ARG DRAGON_RUNNER_VERSION
+
+FROM ghcr.io/cmput415/llvm:${LLVM_VERSION} AS llvm
+FROM ghcr.io/cmput415/antlr:${ANTLR_VERSION} AS antlr
 
 # Stage 2: Create final image with LLVM and your Python tool
 FROM ubuntu:22.04
@@ -20,10 +24,11 @@ RUN apt-get update && apt-get install -y \
 
 # Install the Dragon-Runner
 WORKDIR /opt
-RUN git clone --depth=1 https://github.com/cmput415/Dragon-Runner.git
+RUN git clone https://github.com/cmput415/Dragon-Runner.git
 
-# We already use latest, so we should be alright
+# Checkout the specified version
 WORKDIR /opt/Dragon-Runner
+RUN git checkout $DRAGON_RUNNER_VERSION
 RUN pip install colorama numpy flask flask_cors pytest
 RUN pip install -t /usr/local/dragon-runner .
 
