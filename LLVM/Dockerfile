@@ -21,10 +21,11 @@ RUN git checkout $LLVM_TAG
 WORKDIR /opt/llvm-project/build
 RUN cmake -G Ninja ../llvm \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLLVM_ENABLE_PROJECTS="mlir;clang;clang-tools-extra" \
+    -DLLVM_ENABLE_PROJECTS="mlir;llvm;clang;clang-tools-extra" \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_ASSERTIONS=ON \
     -DLLVM_TARGETS_TO_BUILD="X86" \
+    -DLLVM_ENABLE_TERMINFO=OFF \
     -DLLVM_USE_LINKER=lld \
     -DCMAKE_INSTALL_PREFIX=/usr/local/llvm
 
