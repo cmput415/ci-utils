@@ -28,9 +28,11 @@ RUN git clone https://github.com/cmput415/Dragon-Runner.git
 
 # Checkout the specified version
 WORKDIR /opt/Dragon-Runner
-RUN git checkout $DRAGON_RUNNER_VERSION
-RUN pip install colorama numpy flask flask_cors pytest
-RUN pip install -t /usr/local/dragon-runner .
+RUN git checkout $DRAGON_RUNNER_VERSION && \
+    pip install --no-cache-dir --upgrade pip && \
+    pip install .
+
+RUN dragon-runner --help
 
 WORKDIR /
 
